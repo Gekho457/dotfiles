@@ -112,6 +112,7 @@ alias sl='tmux selectl main-vertical'
 alias kt='tmux kill-server'
 alias dt='source ~/.dev-tmux'
 alias st='tmux source-file .tmux.conf'
+alias gl='git log --all --graph --decorate'
 export KAGGLE_USERNAME=dmitrigekhtman
 export KAGGLE_KEY=9044df2b0ea052b25484e434d7c29dcb
 do_build(){
