@@ -10,6 +10,8 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'https://github.com/rakr/vim-one'
+Plugin 'joshdick/onedark.vim'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'preservim/nerdtree'
 Plugin 'easymotion/vim-easymotion'
 Plugin '907th/vim-auto-save'
@@ -76,13 +78,14 @@ let g:airline_theme='one'
 colorscheme one
 set background=dark
 set t_Co=256
+"colorscheme onedark
 
 map <Space> <C-w>=
 map <C-n> :NERDTreeToggle<CR><Space>
 
 "set splitright
 "autocmd FileType * TextChanged,InsertLeave <buffer> silent write
-"command Sv source ~/.vimrc
+command Sv source ~/.vimrc
 let g:auto_save = 1
 let g:auto_save_silent = 1
 
