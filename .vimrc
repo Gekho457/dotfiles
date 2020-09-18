@@ -30,10 +30,6 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" VIM Configuration File
-" Description: Optimized for C/C++ development, but useful also for other things.
-" Author: Gerhard Gappmeier
-"
 
 " set UTF-8 encoding
 set enc=utf-8
@@ -46,7 +42,7 @@ set nocompatible
 " use indentation of previous line
 set autoindent
 
-" use intelligent indentation for C
+" use intelligent indentation 
 set smartindent
 
 " configure tabwidth and insert spaces instead of tabs
@@ -92,5 +88,5 @@ let g:auto_save_silent = 1
 set t_8f=^[[38;2;%lu;%lu;%lum
 set t_8b=^[[48;2;%lu;%lu;%lum
 set cc=100
-highlight ColorColumn ctermbg=4
-highlight Normal ctermbg=234
+highlight ColorColumn ctermbg=18
+highlight Normal ctermbg=235
