@@ -4,7 +4,7 @@ export ZSH_DISABLE_COMPFIX=true
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/ZhannettaGugel/.oh-my-zsh"
+export ZSH=/Users/"$USER"/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -148,6 +148,8 @@ bindkey -v
 
 
 
-source /Users/ZhannettaGugel/.config/broot/launcher/bash/br
+source /Users/"$USER"/.config/broot/launcher/bash/br
 export TERM=xterm-256color
 PROMPT_EOL_MARK=''
+
+source /Users/dmitrigekhtman/.config/broot/launcher/bash/br
