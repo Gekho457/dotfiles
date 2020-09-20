@@ -79,7 +79,7 @@ set t_Co=256
 map <Space> <C-w>=
 map <C-n> :NERDTreeToggle<CR><Space>
 
-"set splitright
+set splitright
 "autocmd FileType * TextChanged,InsertLeave <buffer> silent write
 command Sv source ~/.vimrc
 let g:auto_save = 1
@@ -90,3 +90,28 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 set cc=100
 highlight ColorColumn ctermbg=18
 highlight Normal ctermbg=235
+hi StatusLineNC NONE
+hi StatusLineNC cterm=reverse
+
+augroup ReduceNoise
+    autocmd!
+    " Automatically resize active split to 100 width
+    autocmd WinEnter * :call ResizeSplits()
+augroup END
+
+let SMALL_WIDTH = 30
+let BIG_WIDTH = 100
+
+function! ResizeSplits()
+    if expand('%:p') != '' && stridx(expand('%:p'), 'NERD_tree') == -1
+        let &winwidth = g:BIG_WIDTH
+        wincmd =
+        let &winwidth = g:SMALL_WIDTH 
+    endif
+endfunction
+
+let NERDTreeQuitOnOpen = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let g:NERDTreeWinSize = SMALL_WIDTH
+
