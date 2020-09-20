@@ -92,6 +92,7 @@ highlight ColorColumn ctermbg=18
 highlight Normal ctermbg=235
 hi StatusLineNC NONE
 hi StatusLineNC cterm=reverse
+hi MatchParen ctermfg=14
 
 augroup ReduceNoise
     autocmd!
