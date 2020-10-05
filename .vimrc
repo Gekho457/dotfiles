@@ -15,6 +15,10 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'preservim/nerdtree'
 Plugin 'easymotion/vim-easymotion'
 Plugin '907th/vim-auto-save'
+Plugin 'kshenoy/vim-signature'
+"Plugin 'ycm-core/YouCompleteMe'
+Plugin 'https://github.com/davidhalter/jedi-vim'
+Plugin 'tpope/vim-surround'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -62,11 +66,13 @@ set mouse=a
 
 " highlight matching braces
 set showmatch
+set matchtime=0
 
 let mapleader="\\"
 map <F10> <C-w><C-w>
 map <F9> <Esc>
 imap <F9> <Esc>
+map <leader>a :vs<CR><leader>d
 set clipboard=unnamed
 
 
@@ -78,6 +84,14 @@ set t_Co=256
 
 map <Space> <C-w>=
 map <C-n> :NERDTreeToggle<CR><Space>
+let NERDTreeShowHidden=1
+let g:NERDTreeQuitOnOpen=0
+
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+let g:netrw_browse_split = 2
+"let g:netrw_liststyle = 3
+
 
 set splitright
 "autocmd FileType * TextChanged,InsertLeave <buffer> silent write
@@ -85,14 +99,27 @@ command Sv source ~/.vimrc
 let g:auto_save = 1
 let g:auto_save_silent = 1
 
+command St SignatureToggle
+
+let g:BACKGROUND = 235
 set t_8f=^[[38;2;%lu;%lu;%lum
 set t_8b=^[[48;2;%lu;%lu;%lum
 set cc=100
+
+match Whitespace /\s/
 highlight ColorColumn ctermbg=18
 highlight Normal ctermbg=235
+hi MatchParen ctermfg=14 ctermbg=235
+hi CursorLine cterm=None ctermbg=235
+hi Whitespace ctermbg=235 ctermfg=235
+hi SignColumn ctermbg=235 
+
 hi StatusLineNC NONE
-hi StatusLineNC cterm=reverse
-hi MatchParen ctermfg=14
+hi StatusLineNC ctermbg=237 ctermfg=248
+hi StatusLine NONE
+hi StatusLine ctermbg=248 ctermfg=black 
+hi Pmenu ctermbg=black ctermfg=white
+hi PmenuSel ctermbg=white ctermfg=black
 
 augroup ReduceNoise
     autocmd!
@@ -100,7 +127,7 @@ augroup ReduceNoise
     autocmd WinEnter * :call ResizeSplits()
 augroup END
 
-let SMALL_WIDTH = 30
+let SMALL_WIDTH = 40
 let BIG_WIDTH = 100
 
 function! ResizeSplits()
@@ -111,8 +138,21 @@ function! ResizeSplits()
     endif
 endfunction
 
-let NERDTreeQuitOnOpen = 1
+"let NERDTreeQuitOnOpen = 1
 let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
+"let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = SMALL_WIDTH
 
+set backspace=indent,eol,start
+autocmd FileType * setlocal completeopt-=preview
+
+set laststatus=2
+
+set ttymouse=sgr
+"let g:kite_supported_languages = ['python', 'javascript', 'go']
+"let g:kite_auto_complete = 0
+"map <C-x> <C-x><C-u>
+"imap <C-x> <C-x><C-u>
+"set completeopt=menuone,noinsert
+"let g:jedi#completions_enabled = 0
+"map <leader>b :let g:jedi#completions_enabled = 1<CR>

@@ -1,5 +1,5 @@
 #!/bin/zsh
-FILES=(.zshrc .vimrc .dev-tmux .tmux.conf)
+FILES=(.zshrc .vimrc .dev-tmux .dev-tmux2 .tmux.conf)
 for FILE in $FILES
     do
         echo "symlinking "$FILE

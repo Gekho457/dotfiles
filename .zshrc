@@ -1,8 +1,18 @@
-export PATH=/usr/local/bin:$PATH
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+#export PATH=/usr/local/bin:$PATH
 export ZSH_DISABLE_COMPFIX=true
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+if [ -f /etc/profile ]; then
+    PATH=""
+    source /etc/profile
+fi
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/"$USER"/.oh-my-zsh
 
@@ -10,7 +20,9 @@ export ZSH=/Users/"$USER"/.oh-my-zsh
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
+#ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -77,7 +89,8 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export EDITOR=vim
 export TZ=US/Pacific
-
+#export PATH=$PATH:/usr/local/anaconda3/bin/
+#export PATH=~/acaconda3/bin:$PATH
 setopt +o nomatch
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -103,18 +116,31 @@ setopt +o nomatch
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias python='/usr/local/bin/python3'
-alias pip='/usr/local/bin/pip3'
+#alias python='/usr/local/bin/python3'
+#alias pip='/usr/local/bin/pip3'
 alias slp='pmset sleepnow'
 alias rm='/bin/rm'
 alias sz='source ~/.zshrc'
 alias sl='tmux selectl main-vertical'
 alias kt='tmux kill-server'
 alias dt='source ~/.dev-tmux'
+alias dt2='source ~/.dev-tmux2'
 alias st='tmux source-file ~/.tmux.conf'
 alias gl='git log --all --graph --decorate'
+alias vim='/usr/local/bin/vim'
+alias fo='~/code/ray/ci/travis/format.sh'
 export KAGGLE_USERNAME=dmitrigekhtman
 export KAGGLE_KEY=9044df2b0ea052b25484e434d7c29dcb
+cur_branch(){
+  git rev-parse --abbrev-ref HEAD
+}
+gu(){  
+  BRANCH="$(cur_branch)"
+  git checkout master
+  git pull upstream master -t 
+  git push origin master
+  git checkout "$BRANCH"
+}
 do_build(){
 	cmake .. && cmake --build .
 }
@@ -153,3 +179,23 @@ export TERM=xterm-256color
 PROMPT_EOL_MARK=''
 
 source /Users/dmitrigekhtman/.config/broot/launcher/bash/br
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/dmitrigekhtman/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/dmitrigekhtman/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/dmitrigekhtman/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/dmitrigekhtman/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+conda activate ray-dev
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

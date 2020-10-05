@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AllowClipboardAccess</key>
+	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>ApplePressAndHoldEnabled</key>
@@ -68,7 +70,9 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>496 486 799 448 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>184 503 730 552 0 0 1792 1120 </string>
+	<string>585 408 856 678 0 0 1792 1097 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>188 371 730 552 0 0 1792 1120 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -678,14 +682,16 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {1792, 1120}}</string>
+		<string>{{1792, -480}, {3840, 1600}}</string>
 		<key>topLeft</key>
-		<string>{574, 875}</string>
+		<string>{3679, 1085}</string>
 	</dict>
+	<key>NoSyncHaveUsedCopyMode</key>
+	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>E7AE1447-CD92-4A63-80F1-992A707A4200</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>2</integer>
+	<integer>3</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1418,6 +1424,39 @@
 	</dict>
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
 	<real>622216580.05553997</real>
+	<key>PointerActions</key>
+	<dict>
+		<key>Button,1,1,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kContextMenuPointerAction</string>
+		</dict>
+		<key>Button,2,1,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kPasteFromClipboardPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeDown,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kPrevWindowPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeLeft,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kPrevTabPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeRight,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kNextTabPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeUp,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kNextWindowPointerAction</string>
+		</dict>
+	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>/Users/dmitrigekhtman/code/dotfiles</string>
 	<key>SUEnableAutomaticChecks</key>
@@ -1429,7 +1468,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-09-20T02:04:37Z</date>
+	<date>2020-09-23T20:20:10Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SoundForEsc</key>

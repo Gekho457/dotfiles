@@ -1,0 +1,10 @@
+#!/bin/sh
+tmux new-window
+tmux select-window -t 0
+tmux split-window 
+tmux setw main-pane-height 40
+tmux selectl main-horizontal
+#tmux send-keys -t 0 vim Enter
+#tmux send-keys -t 0 :cd ~/code Enter 
+#tmux send-keys -t 0 C-n Enter 
+reset
