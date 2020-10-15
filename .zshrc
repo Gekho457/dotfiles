@@ -5,14 +5,24 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if type rg &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files'
+  export FZF_DEFAULT_OPTS='-m --height 50% --border'
+fi
+
 #export PATH=/usr/local/bin:$PATH
 export ZSH_DISABLE_COMPFIX=true
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+
 if [ -f /etc/profile ]; then
     PATH=""
     source /etc/profile
 fi
+
+export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/.cargo/bin
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/"$USER"/.oh-my-zsh
 
@@ -93,6 +103,7 @@ export TZ=US/Pacific
 #export PATH=~/acaconda3/bin:$PATH
 setopt +o nomatch
 
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -129,6 +140,7 @@ alias st='tmux source-file ~/.tmux.conf'
 alias gl='git log --all --graph --decorate'
 alias vim='/usr/local/bin/vim'
 alias fo='~/code/ray/ci/travis/format.sh'
+alias fp='fzf | pbcopy'
 export KAGGLE_USERNAME=dmitrigekhtman
 export KAGGLE_KEY=9044df2b0ea052b25484e434d7c29dcb
 cur_branch(){
@@ -195,7 +207,10 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-conda activate ray-dev
+conda activate ray2
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

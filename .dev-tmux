@@ -1,10 +1,6 @@
 #!/bin/sh
-tmux new-window
-tmux select-window -t 0
 tmux split-window -h
 tmux selectp -t 0
+tmux setw main-pane-width 60
 tmux selectl main-vertical
-#tmux send-keys -t 1 vim Enter
-#tmux send-keys -t 1 :cd ~/code Enter 
-#tmux send-keys -t 1 C-n Enter 
 reset

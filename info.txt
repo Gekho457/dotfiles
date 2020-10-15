@@ -1,0 +1,5 @@
+brew install vim, alias to usr/local/bin/vim
+single space modification to NERDTree (look it up later) --  source control and put
+in install script!
+fzf
+I forget.
