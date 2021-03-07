@@ -3,3 +3,12 @@ single space modification to NERDTree (look it up later) --  source control and 
 in install script!
 fzf
 I forget.
+brew install pylint(for ALE)
+
+
+Todo: Filetype-specific color column and wrap
+      Replace word
+      Color column break.
+
+Colors - onedark: 282c34
+dark purple: 230014

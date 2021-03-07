@@ -6,7 +6,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 if type rg &> /dev/null; then
-  export FZF_DEFAULT_COMMAND='rg --files'
+  export FZF_DEFAULT_OPTS='--height=70% --preview="cat {}" --preview-window=right:60%:wrap'
+  export FZF_DEFAULT_COMMAND='rg --hidden --files'
   export FZF_DEFAULT_OPTS='-m --height 50% --border'
 fi
 
@@ -25,6 +26,9 @@ export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.cargo/bin
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/"$USER"/.oh-my-zsh
+
+export GOPATH=$(go env GOPATH)
+export PATH=$PATH:$(go env GOPATH)/bin
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -141,17 +145,69 @@ alias gl='git log --all --graph --decorate'
 alias vim='/usr/local/bin/vim'
 alias fo='~/code/ray/ci/travis/format.sh'
 alias fp='fzf | pbcopy'
-export KAGGLE_USERNAME=dmitrigekhtman
-export KAGGLE_KEY=9044df2b0ea052b25484e434d7c29dcb
+alias git='/usr/local/bin/git'
+alias s='source'
+alias m='eval $(minikube docker-env)'
+alias ave='aws-vault exec --ecs-server dmitri-experimental'
+swap(){
+  TEMP="/tmp/$(basename $0).$$.tmp"
+  cp $1 $TEMP
+  git mv -f $2 $1
+  mv $TEMP $2
+  git add $2
+}
+min(){
+  minikube start --cpus=8 --memory="4G"
+}
+caa(){
+  conda activate anyscale7
+}
+car(){
+  conda activate ray3
+}
 cur_branch(){
   git rev-parse --abbrev-ref HEAD
 }
-gu(){  
+am(){
+  git add -u
+  git commit --amend
+}
+gu(){
   BRANCH="$(cur_branch)"
   git checkout master
-  git pull upstream master -t 
+  git pull upstream master -t
   git push origin master
   git checkout "$BRANCH"
+}
+gdelete(){
+  BRANCH="$(cur_branch)"
+  git checkout master
+  git branch -D "$BRANCH"
+  git push origin :"$BRANCH" --no-verify
+}
+gdel(){
+  git checkout $1
+  gdelete
+}
+gdels(){
+ for x in $@
+ do
+   gdel $x
+ done
+}
+gurp(){
+  gu
+  git rebase master
+  git push -f origin
+}
+pf(){
+  BRANCH="$(cur_branch)"
+  git push -u origin "$BRANCH":"$BRANCH"
+}
+gurpf(){
+  gu
+  git rebase master
+  pf
 }
 do_build(){
 	cmake .. && cmake --build .
@@ -166,7 +222,7 @@ do_cb(){
 	do_clean && do_build
 }
 
-layout(){	
+layout(){
 	tmux lsw | grep -o 'l.*}' | cut -c 8-
 }
 
@@ -181,9 +237,36 @@ his(){
 dl(){
 	tmux selectl "e222,547x92,0,0{413x92,0,0,9,133x92,414,0,8}"
 }
-
+mcd(){
+  mkdir $1
+  cd $1
+}
+aws_login(){
+  aws sso login --profile dmitri-experimental
+}
+docker_login(){
+  aws ecr get-login-password --region us-west-2 --profile dmitrigekhtman | docker login --username AWS --password-stdin 029272617770.dkr.ecr.us-west-2.amazonaws.com
+}
+qc(){
+  git add -u
+  git commit -m $1
+}
+gcld(){
+  gcloud auth application-default login
+}
+gs(){
+  git status -u no
+}
+# vi mode
 bindkey -v
+# Yank to the system clipboard
+function vi-yank-xclip {
+    zle vi-yank
+   echo "$CUTBUFFER" | pbcopy -i
+}
 
+zle -N vi-yank-xclip
+bindkey -M vicmd 'y' vi-yank-xclip
 
 
 source /Users/"$USER"/.config/broot/launcher/bash/br
@@ -192,6 +275,8 @@ PROMPT_EOL_MARK=''
 
 source /Users/dmitrigekhtman/.config/broot/launcher/bash/br
 
+#aws_login
+#docker_login
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/dmitrigekhtman/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -207,10 +292,26 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-conda activate ray2
+PROD=/Users/dmitrigekhtman/code/product
+RAY=/Users/dmitrigekhtman/code/ray
+# if [ "${PWD##$PROD}" != "$PWD" ]
+# then
+  # conda activate anyscale7
+# else
+  # conda activate ray3
+# fi
+conda activate ray3
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/dmitrigekhtman/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/dmitrigekhtman/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/dmitrigekhtman/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/dmitrigekhtman/google-cloud-sdk/completion.zsh.inc'; fi

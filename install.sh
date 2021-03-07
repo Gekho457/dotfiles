@@ -5,3 +5,5 @@ for FILE in $FILES
         echo "symlinking "$FILE
         ln -fs ${PWD}/$FILE ~/$FILE
     done
+echo "symlinking init.vim"
+ln -fs ${PWD}"/init.vim" ~/".config/nvim/init.vim"
