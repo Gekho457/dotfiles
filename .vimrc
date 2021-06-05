@@ -40,6 +40,9 @@ Plugin 'pedrohdz/vim-yaml-folds'
 Plugin 'Yggdroot/indentLine'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'fatih/vim-go'
+Plugin 'tshirtman/vim-cython'
+Plugin 'tomasiser/vim-code-dark'
+
 set list lcs=tab:\┊\ 
 
 " Plugin 'wincent/command-t'
@@ -225,9 +228,11 @@ set hlsearch
 "hi LineNr guibg=NONE
 
 set termguicolors
-let g:airline_theme='one'
-colorscheme one
-set background=dark
+colorscheme codedark
+let g:airline_theme = 'codedark'
+"let g:airline_theme='one'
+"colorscheme one
+"set background=dark
 "set background=light
 hi Search guibg='#8cba9e'
 """""
@@ -290,6 +295,10 @@ augroup PythonWrap
     autocmd FileType python setlocal completeopt-=preview
 augroup END
 
+"augroup cython_ft
+ "au!
+  "  autocmd BufNewFile,BufRead *.{pyx,pxd,pxi} set filetype=cython
+"augroup END
 
 set laststatus=2
 

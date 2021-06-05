@@ -149,6 +149,20 @@ alias git='/usr/local/bin/git'
 alias s='source'
 alias m='eval $(minikube docker-env)'
 alias ave='aws-vault exec --ecs-server dmitri-experimental'
+alias gco='git checkout'
+alias vv='vim ~/.vimrc'
+alias vz='vim ~/.zshrc'
+alias gda='git branch | grep -v "master" | xargs git branch -D'
+do_everything(){
+  pushd ~/code/ray
+  bash do_everything.sh
+  popd
+}
+kub_test(){
+  pushd ~/code/k8s_tests
+  IMAGE="$1" bash k8_ci.sh
+  popd
+}
 swap(){
   TEMP="/tmp/$(basename $0).$$.tmp"
   cp $1 $TEMP
@@ -165,6 +179,9 @@ caa(){
 car(){
   conda activate ray3
 }
+carn(){
+  conda activate raynightly
+}
 cur_branch(){
   git rev-parse --abbrev-ref HEAD
 }
@@ -175,7 +192,8 @@ am(){
 gu(){
   BRANCH="$(cur_branch)"
   git checkout master
-  git pull upstream master -t
+  git fetch upstream
+  git reset --hard upstream/master
   git push origin master
   git checkout "$BRANCH"
 }
@@ -254,8 +272,14 @@ qc(){
 gcld(){
   gcloud auth application-default login
 }
+gku(){
+  gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project dmitri-test-300222
+}
 gs(){
-  git status -u no
+  git status -uno
+}
+gls(){
+  git ls-files . | sed s,/.*,/, | uniq
 }
 # vi mode
 bindkey -v
@@ -301,6 +325,7 @@ RAY=/Users/dmitrigekhtman/code/ray
   # conda activate ray3
 # fi
 conda activate ray3
+#conda activate anyscale7
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
